@@ -10,6 +10,10 @@ from docx.oxml.ns import qn
 document = Document()
 section = document.sections[0]
 
+# Customizing font
+style = document.styles['Normal']
+font = style.font
+font.name = 'Arial'
 
 # Customizing orientation
 section.orientation = WD_ORIENT.LANDSCAPE

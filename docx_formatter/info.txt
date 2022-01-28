@@ -1,4 +1,7 @@
+one line width 
+	522
+
 font-size 16
-	one line holds 77 chars
-	one column holds 2079 chars
+	one line holds 59 chars
+	one column holds 1593 chars
 	one column holds 27 lines
