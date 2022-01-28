@@ -10,6 +10,7 @@ from telegram import Update
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext
 
 from models.model import save_data_if_unique
+from docx_formatter.main import make_docx, save_docx
 
 
 logging.basicConfig(
@@ -30,12 +31,20 @@ def help_command(update: Update, context: CallbackContext) -> None:
 							   Good luck!.")
 
 
+def save(update: Update, context: CallbackContext) -> None:
+	save_docx()
+	update.message.reply_text("Saved")
+
+
 def accept_message(update: Update, context: CallbackContext) -> None:
+	message = update.message.text 
 	try:
-		resp = save_data_if_unique(update.message.text)	
+		resp = save_data_if_unique(message)	
 	except Exception as e:
 		print(e)
 		
+	# Just testing
+	make_docx(message)
 	if resp == 'success':
 		update.message.reply_text("Thanks")
 	elif resp == 'duplicate':
@@ -50,6 +59,7 @@ def main() -> None:
 
 	dispatcher.add_handler(CommandHandler('start', start))
 	dispatcher.add_handler(CommandHandler('help', help_command))
+	dispatcher.add_handler(CommandHandler('save', save))
 
 	dispatcher.add_handler(MessageHandler(Filters.text & ~Filters.command, accept_message))
 

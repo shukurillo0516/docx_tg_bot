@@ -1,6 +1,16 @@
 one line width 
 	522
 
+one page width Pt(12)
+	18471
+one page width Pt(13)
+	15735
+one page width Pt(14)
+	13665
+one page width Pt(15)
+	12000
+one page width Pt(16)
+	10452
 font-size 16
 	one line holds 59 chars
 	one column holds 1593 chars

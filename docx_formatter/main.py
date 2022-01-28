@@ -6,6 +6,10 @@ from docx.enum.section import WD_ORIENT
 from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
 
+from docx_formatter.measure import adjust_font
+from docx_formatter.helper import delete_black_lines
+
+
 
 document = Document()
 section = document.sections[0]
@@ -32,6 +36,7 @@ section.right_margin, section.left_margin, section.top_margin, section.bottom_ma
 def add_paragraph(text, f_size=16):
 	p = document.add_paragraph().add_run(text)
 	p.font.size = Pt(f_size)
+	p.page_break_before = True
 
 
 def fill_first_column():
@@ -39,13 +44,19 @@ def fill_first_column():
 		add_paragraph('')
 
 
-fill_first_column()
-add_paragraph("text")
-fill_first_column()
-add_paragraph("text2", 12)
+def make_docx(message):
+	message = delete_black_lines(message)
+	data = adjust_font(message)
+	text, f_size = [t for t in data]
+
+	fill_first_column()
+	add_paragraph(text, f_size)
+
+
+def save_docx():
+	document.save("docx_formatter/docs/messages.docx")
+	print('saved')
 
 
 
 
-
-document.save("docs/messages.docx")

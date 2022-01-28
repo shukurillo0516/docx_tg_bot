@@ -46,5 +46,4 @@ def retrieve_data() -> None:
 	for row in cur:
 		print(row)
 	cur.close()
-# retrieve_data()
 
