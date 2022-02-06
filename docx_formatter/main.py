@@ -22,7 +22,7 @@ font.name = 'Arial'
 # Customizing orientation
 section.orientation = WD_ORIENT.LANDSCAPE
 section.page_width = Inches(11.69)
-section.page_height = Inches(8.27)
+section.page_height = Inches(8.22)
 
 # Spliting page into two columns
 sectPr = section._sectPr
@@ -30,7 +30,7 @@ cols = sectPr.xpath('./w:cols')[0]
 cols.set(qn('w:num'),'2')
 
 # Customizing margins of a page
-section.right_margin, section.left_margin, section.top_margin, section.bottom_margin = 0, Inches(.5), Inches(.1), Inches(.1)
+section.right_margin, section.left_margin, section.top_margin, section.bottom_margin = 0, Inches(.5), Inches(.12), Inches(.1)
 
 
 def add_paragraph(text, f_size=16):
@@ -47,16 +47,16 @@ def fill_first_column():
 def make_docx(message):
 	message = delete_black_lines(message)
 	data = adjust_font(message)
-	text, f_size = [t for t in data]
-
-	fill_first_column()
-	add_paragraph(text, f_size)
+	# text, f_size = [t for t in data]
+	for text in data["messages"]:
+		fill_first_column()
+		add_paragraph(text, data["f_size"])
 
 
 def save_docx():
-	document.save("docx_formatter/docs/messages.docx")
+	document.save("docx_formatter/docs/messages1.docx")
 	print('saved')
-
+ 
 
 
 

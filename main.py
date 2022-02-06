@@ -36,7 +36,9 @@ def save(update: Update, context: CallbackContext) -> None:
 	update.message.reply_text("Saved")
 
 
+i = 1
 def accept_message(update: Update, context: CallbackContext) -> None:
+	global i
 	message = update.message.text 
 	try:
 		resp = save_data_if_unique(message)	
@@ -44,9 +46,11 @@ def accept_message(update: Update, context: CallbackContext) -> None:
 		print(e)
 		
 	# Just testing
-	make_docx(message)
 	if resp == 'success':
+		make_docx(message)
 		update.message.reply_text("Thanks")
+		print(i)
+		i += 1
 	elif resp == 'duplicate':
 		update.message.reply_text("duplicate")
 
