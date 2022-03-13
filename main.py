@@ -39,7 +39,12 @@ def save(update: Update, context: CallbackContext) -> None:
 i = 1
 def accept_message(update: Update, context: CallbackContext) -> None:
 	global i
-	message = update.message.text 
+	message = str()
+	if(update.message.caption):
+		message = update.message.caption
+	else:
+		message = update.message.text
+	
 	try:
 		resp = save_data_if_unique(message)	
 	except Exception as e:
@@ -65,8 +70,8 @@ def main() -> None:
 	dispatcher.add_handler(CommandHandler('help', help_command))
 	dispatcher.add_handler(CommandHandler('save', save))
 
-	dispatcher.add_handler(MessageHandler(Filters.text & ~Filters.command, accept_message))
-
+	dispatcher.add_handler(MessageHandler(Filters.update, accept_message))
+	#Filters.text & ~Filters.command
 	updater.start_polling()
 
 
