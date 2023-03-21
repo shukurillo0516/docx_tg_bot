@@ -12,6 +12,3 @@ class EndIndex:
 			return self.bisection((mid_index - (mid_index - old)/2) * 2, old)
 		else:
 			return self.bisection((mid_index + (mid_index - old)/2) * 2, mid_index)
-
-i = EndIndex(85)
-print(i.bisection(100))
